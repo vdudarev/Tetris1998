@@ -1,0 +1,30 @@
+             Текст тестируемых процедур и функций на языке Паскаль:
+
+Procedure ROTATE;
+Var
+   i, j: Byte;
+Begin
+   for i:=1 to 4 do
+      for j:=1 to 4 do
+          Fig[Tmp+1].Image[i,j]:=Fig[Tmp].Image[5-j,i];
+End; { ROTATE }
+
+
+Function HIGH_TIME: Boolean;
+Var
+   Fl: Boolean;
+   H, M, S, S100: Word;
+Begin
+   Fl:= FALSE;
+   GetTime (H, M, S, S100);
+   if Sec < S then { Та же минута } begin
+1:    if (S100+(100-Sec100)+100*(S-Sec-1)) >= TimeStep then
+         Fl:=TRUE; end
+2: else if Sec = S then begin
+      if (S100-Sec100) >= TimeStep then
+         Fl:=TRUE; end
+   else { Sec > S }
+3:    if (S100+(100-Sec100)+100*(S+59-Sec)) >= TimeStep then
+         Fl:=TRUE;
+   High_Time:= Fl;
+End; { HIGH_TIME }

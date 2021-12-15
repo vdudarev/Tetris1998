@@ -1,0 +1,40 @@
+                                ТИПЫ ДАННЫХ.
+
+TYPE
+   Name = String[21]; { No comments... }
+   PTL = ^TList;
+   TList = Record { Тип опции меню }
+      Title: Name; { Название опции }
+      Prev, Next: PTL; { Указатели на соседние опции меню }
+      Number: Byte; { Номер опции (всегда уникален) }
+      X, Y: Integer; { Координаты расположения центра кнопки на экране }
+   End;
+
+   TMenu = Object
+      Head, Tail, Cur: PTL; { Указатели на голову, хвост и активную опцию меню }
+      N: Byte; { Фактическое число опций в меню }
+      Constructor INIT_MENU;
+      Destructor DESTROY_MENU;
+      Procedure ADD_MENU (NewName: Name; Var Suc: Boolean);
+      Function CHOICE_MENU (Vertical: Boolean; XC, YC: Integer;
+      NormalFore, NormalBack, SelectedFore, SelectedBack: Word): Byte;
+   End;
+
+   Mas = Array [1..4] Of String[4]; { Образ фигура }
+
+   Field = Array [-2..MaxX+3,1..MaxY+3] Of Boolean; { Тип массива стакана }
+
+   Figure = Record { Тип определяющий 1 игровую фигуру }
+      Color: Byte; { Цвет фигуры }
+      Image: Mas; { Образ фигура }
+   End;
+
+   Figures = Array [0..Tmp+1] Of Figure; { Тип массива игровых фигур }
+
+   Stroka = String[20]; { No comments... }
+
+   Records = Record { Тип лучшие результаты }
+      WinnerText: Stroka; { Текст победителя }
+      Name: Array [1..10] Of Stroka; { Имена лучших игроков }
+      Sc: Array [1..10] Of Word; { Результаты лучших игроков }
+   End;
